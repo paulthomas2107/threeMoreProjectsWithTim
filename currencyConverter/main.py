@@ -13,8 +13,8 @@ def convert_currency(base):
         response = requests.get(url)
         data = response.json()
         return data["data"]
-    except Exception as e:
-        print(e)
+    except:
+        print("Unknown Currency")
         return None
 
 
@@ -22,11 +22,9 @@ while True:
     conv = input("Enter base currency (q to Quit) ").upper()
     if conv == 'Q' or conv == "":
         break
-    if conv not in CURRENCIES:
-        print("Unknown Currency")
-        continue
     data = convert_currency(conv)
-    del data[conv]
-    for ticker, value in data.items():
-        print(f'{ticker}: {value}')
+    if data is not None:
+        del data[conv]
+        for ticker, value in data.items():
+            print(f'{ticker}: {value}')
 print("Bye...")
